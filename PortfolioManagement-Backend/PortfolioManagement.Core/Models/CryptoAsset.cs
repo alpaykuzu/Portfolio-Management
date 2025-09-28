@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PortfolioManagement.Core.Models
+{
+    public class CryptoAsset
+    {
+        public int Id { get; set; }
+        public string Symbol { get; set; }    // "BTC"
+        public string DisplaySymbol { get; set; } // "BTC/TRY" veya "BTC/USDT"
+        public string Source { get; set; } = "BINANCE";
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    }
+}

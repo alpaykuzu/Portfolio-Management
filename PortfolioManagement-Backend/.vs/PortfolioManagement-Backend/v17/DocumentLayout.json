@@ -1,0 +1,267 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.service\\services\\portfolioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|solutionrelative:portfoliomanagement.service\\services\\portfolioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.service\\services\\binanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|solutionrelative:portfoliomanagement.service\\services\\binanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.service\\services\\priceupdateservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|solutionrelative:portfoliomanagement.service\\services\\priceupdateservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC77A18-BADF-4B4B-B89B-28E553E0136B}|PortfolioManagement.API\\PortfolioManagement.API.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.api\\controllers\\portfoliocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC77A18-BADF-4B4B-B89B-28E553E0136B}|PortfolioManagement.API\\PortfolioManagement.API.csproj|solutionrelative:portfoliomanagement.api\\controllers\\portfoliocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.service\\hubs\\portfoliohub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|solutionrelative:portfoliomanagement.service\\hubs\\portfoliohub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.service\\services\\priceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|solutionrelative:portfoliomanagement.service\\services\\priceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC77A18-BADF-4B4B-B89B-28E553E0136B}|PortfolioManagement.API\\PortfolioManagement.API.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.api\\controllers\\pricecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC77A18-BADF-4B4B-B89B-28E553E0136B}|PortfolioManagement.API\\PortfolioManagement.API.csproj|solutionrelative:portfoliomanagement.api\\controllers\\pricecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D4A3A40-4029-4C5A-8887-394EAC7D638A}|PortfolioManagement.Core\\PortfolioManagement.Core.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.core\\interfaces\\ipriceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D4A3A40-4029-4C5A-8887-394EAC7D638A}|PortfolioManagement.Core\\PortfolioManagement.Core.csproj|solutionrelative:portfoliomanagement.core\\interfaces\\ipriceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.service\\services\\yahoofinanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|solutionrelative:portfoliomanagement.service\\services\\yahoofinanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.service\\services\\symbolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{282635C9-5F01-4F38-8BC4-A0432DC397FA}|PortfolioManagement.Service\\PortfolioManagement.Service.csproj|solutionrelative:portfoliomanagement.service\\services\\symbolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D4A3A40-4029-4C5A-8887-394EAC7D638A}|PortfolioManagement.Core\\PortfolioManagement.Core.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.core\\interfaces\\iportfolioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D4A3A40-4029-4C5A-8887-394EAC7D638A}|PortfolioManagement.Core\\PortfolioManagement.Core.csproj|solutionrelative:portfoliomanagement.core\\interfaces\\iportfolioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D4A3A40-4029-4C5A-8887-394EAC7D638A}|PortfolioManagement.Core\\PortfolioManagement.Core.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.core\\dtos\\portfoloitemdtos\\portfoloitemresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D4A3A40-4029-4C5A-8887-394EAC7D638A}|PortfolioManagement.Core\\PortfolioManagement.Core.csproj|solutionrelative:portfoliomanagement.core\\dtos\\portfoloitemdtos\\portfoloitemresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D4A3A40-4029-4C5A-8887-394EAC7D638A}|PortfolioManagement.Core\\PortfolioManagement.Core.csproj|c:\\users\\alpay\\source\\repos\\portfolio-management\\portfoliomanagement-backend\\portfoliomanagement.core\\dtos\\portfoliodtos\\portfolioresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D4A3A40-4029-4C5A-8887-394EAC7D638A}|PortfolioManagement.Core\\PortfolioManagement.Core.csproj|solutionrelative:portfoliomanagement.core\\dtos\\portfoliodtos\\portfolioresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 1255,
+          "SelectedChildIndex": 11,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PortfolioHub.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Hubs\\PortfolioHub.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.Service\\Hubs\\PortfolioHub.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Hubs\\PortfolioHub.cs",
+              "RelativeToolTip": "PortfolioManagement.Service\\Hubs\\PortfolioHub.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAqwGUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T20:00:31.66Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PriceUpdateService.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\PriceUpdateService.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.Service\\Services\\PriceUpdateService.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\PriceUpdateService.cs",
+              "RelativeToolTip": "PortfolioManagement.Service\\Services\\PriceUpdateService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAqwCoAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T20:00:20.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BinanceService.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\BinanceService.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.Service\\Services\\BinanceService.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\BinanceService.cs",
+              "RelativeToolTip": "PortfolioManagement.Service\\Services\\BinanceService.cs",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAqwGgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T19:42:21.671Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IPriceService.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Core\\Interfaces\\IPriceService.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.Core\\Interfaces\\IPriceService.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Core\\Interfaces\\IPriceService.cs",
+              "RelativeToolTip": "PortfolioManagement.Core\\Interfaces\\IPriceService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T19:30:14.073Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PriceController.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.API\\Controllers\\PriceController.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.API\\Controllers\\PriceController.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.API\\Controllers\\PriceController.cs",
+              "RelativeToolTip": "PortfolioManagement.API\\Controllers\\PriceController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T19:27:41.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "YahooFinanceService.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\YahooFinanceService.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.Service\\Services\\YahooFinanceService.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\YahooFinanceService.cs",
+              "RelativeToolTip": "PortfolioManagement.Service\\Services\\YahooFinanceService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T19:26:59.389Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PriceService.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\PriceService.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.Service\\Services\\PriceService.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\PriceService.cs",
+              "RelativeToolTip": "PortfolioManagement.Service\\Services\\PriceService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAABsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T19:26:33.748Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SymbolService.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\SymbolService.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.Service\\Services\\SymbolService.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\SymbolService.cs",
+              "RelativeToolTip": "PortfolioManagement.Service\\Services\\SymbolService.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAowEIAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T19:18:15.852Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PortfolioService.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\PortfolioService.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.Service\\Services\\PortfolioService.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Service\\Services\\PortfolioService.cs",
+              "RelativeToolTip": "PortfolioManagement.Service\\Services\\PortfolioService.cs",
+              "ViewState": "AgIAABgBAAAAAAAAAAAswCsBAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T17:40:43.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PortfolioController.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.API\\Controllers\\PortfolioController.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.API\\Controllers\\PortfolioController.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.API\\Controllers\\PortfolioController.cs",
+              "RelativeToolTip": "PortfolioManagement.API\\Controllers\\PortfolioController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCUAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T17:40:03.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IPortfolioService.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Core\\Interfaces\\IPortfolioService.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.Core\\Interfaces\\IPortfolioService.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Core\\Interfaces\\IPortfolioService.cs",
+              "RelativeToolTip": "PortfolioManagement.Core\\Interfaces\\IPortfolioService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T17:51:26.957Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "PortfoloItemResponseDto.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Core\\Dtos\\PortfoloItemDtos\\PortfoloItemResponseDto.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.Core\\Dtos\\PortfoloItemDtos\\PortfoloItemResponseDto.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Core\\Dtos\\PortfoloItemDtos\\PortfoloItemResponseDto.cs",
+              "RelativeToolTip": "PortfolioManagement.Core\\Dtos\\PortfoloItemDtos\\PortfoloItemResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T17:45:37.017Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "PortfolioResponseDto.cs",
+              "DocumentMoniker": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Core\\Dtos\\PortfolioDtos\\PortfolioResponseDto.cs",
+              "RelativeDocumentMoniker": "PortfolioManagement.Core\\Dtos\\PortfolioDtos\\PortfolioResponseDto.cs",
+              "ToolTip": "C:\\Users\\alpay\\source\\repos\\Portfolio-Management\\PortfolioManagement-Backend\\PortfolioManagement.Core\\Dtos\\PortfolioDtos\\PortfolioResponseDto.cs",
+              "RelativeToolTip": "PortfolioManagement.Core\\Dtos\\PortfolioDtos\\PortfolioResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T17:43:09.09Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 504,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
