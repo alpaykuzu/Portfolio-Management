@@ -52,7 +52,7 @@ namespace PortfolioManagement.Service.Services
                 }
 
                 // 30 saniyede bir güncelle
-                await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(3), stoppingToken);
             }
         }
     }

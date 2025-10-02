@@ -10,19 +10,50 @@ import type { CryptoAssetResponse } from "../types/CryptoAsset/CryptoAssetRespon
 import "../styles/PortfolioPage.css";
 import { useAuth } from "../context/AuthProvider";
 
+// Chart bileşenleri
+import {
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
 interface AddAssetModal {
   isOpen: boolean;
   portfolioId: number | null;
   portfolioType: string;
 }
 
+interface MarketData {
+  symbol: string;
+  name: string;
+  price: number;
+  change: number;
+  changePercent: number;
+  type: "stock" | "crypto";
+}
+
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
+
 const PortfolioPage: React.FC = () => {
   const { id: userId, logout } = useAuth();
   const [portfolios, setPortfolios] = useState<PortfolioResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [activeTab, setActiveTab] = useState<"overview" | "details" | "market">(
+    "overview"
+  );
+  const [marketData, setMarketData] = useState<MarketData[]>([]);
 
-  // SignalRService instance'ı tek bir yerde tut
   const [signalRService] = useState(() => SignalRService.getInstance());
 
   // Modal states
@@ -49,35 +80,47 @@ const PortfolioPage: React.FC = () => {
     purchaseDate: new Date().toISOString().split("T")[0],
   });
 
-  // Portfolio update handler (memoize edildi)
-  const handlePortfolioUpdate = useCallback((updatedPortfolios: any) => {
-    console.log("Received portfolio update:", updatedPortfolios);
-    if (updatedPortfolios.success && updatedPortfolios.data) {
-      setPortfolios(updatedPortfolios.data);
+  // Portfolio update handler - TÜM güncellemeler buradan gelecek
+  const handlePortfolioUpdate = useCallback((updatedData: any) => {
+    console.log("Received portfolio update:", updatedData);
+
+    // Portfolio güncellemesi
+    if (
+      updatedData.success &&
+      updatedData.data &&
+      Array.isArray(updatedData.data)
+    ) {
+      setPortfolios(updatedData.data);
+      updateMarketData(updatedData.data);
     }
-  }, []); // Bağımlılık yok, sadece fonksiyonun kendisi
 
-  // SADECE SignalR handler'larını kurma/temizleme useEffect'i
+    // Market data güncellemesi (eğer farklı bir formatla gelirse)
+    else if (updatedData.success && updatedData.marketData) {
+      setMarketData(updatedData.marketData);
+    }
+
+    // Sadece fiyat güncellemesi
+    else if (updatedData.type === "priceUpdate" && updatedData.prices) {
+      updatePrices(updatedData.prices);
+    }
+  }, []);
+
+  // SignalR handler
   useEffect(() => {
-    // Bağlantının AuthProvider'da kurulduğu varsayılır.
-    // Burada sadece handler'ı ekleyip kaldırırız.
-
-    // Handler'ı kaydet
     signalRService.onPortfolioUpdated(handlePortfolioUpdate);
 
-    // Temizleme fonksiyonu: Bileşen kaldırıldığında handler'ı temizle
     return () => {
       signalRService.offPortfolioUpdated(handlePortfolioUpdate);
     };
-    // Sadece signalRService ve callback değiştiğinde (ki değişmez) çalışır.
   }, [signalRService, handlePortfolioUpdate]);
 
-  // Load portfolios (İlk yükleme ve diğer servis çağrıları)
+  // Load portfolios
   const loadPortfolios = async () => {
     try {
       setLoading(true);
       const response = await PortfolioService.getAllPortfolioAsync();
       setPortfolios(response.data);
+      updateMarketData(response.data);
     } catch (error: any) {
       setError(error.message);
       if (error.message.includes("Unauthorized")) {
@@ -88,20 +131,61 @@ const PortfolioPage: React.FC = () => {
     }
   };
 
+  // Update market data from portfolios
+  const updateMarketData = (portfolioData: PortfolioResponse[]) => {
+    const marketItems: MarketData[] = [];
+
+    portfolioData.forEach((portfolio) => {
+      portfolio.items.forEach((item) => {
+        marketItems.push({
+          symbol: item.symbol,
+          name: item.symbol,
+          price: item.currentPrice,
+          change: item.profit,
+          changePercent: item.profitPercentage,
+          type: portfolio.type as "stock" | "crypto",
+        });
+      });
+    });
+
+    setMarketData(marketItems);
+  };
+
+  // Update prices for market data
+  const updatePrices = (
+    priceUpdates: {
+      symbol: string;
+      price: number;
+      change: number;
+      changePercent: number;
+    }[]
+  ) => {
+    setMarketData((prev) =>
+      prev.map((item) => {
+        const update = priceUpdates.find((p) => p.symbol === item.symbol);
+        if (update) {
+          return {
+            ...item,
+            price: update.price,
+            change: update.change,
+            changePercent: update.changePercent,
+          };
+        }
+        return item;
+      })
+    );
+  };
+
   useEffect(() => {
     if (userId) {
       loadPortfolios();
     }
-  }, [userId]); // Sadece userId değiştiğinde çalışır
-
-  // Diğer tüm fonksiyonlar aynı kalır (createPortfolio, deletePortfolio, searchAssets, vb.)
-  // ...
+  }, [userId]);
 
   // Create portfolio
   const createPortfolio = async (type: "stock" | "crypto") => {
     try {
       await PortfolioService.createPortfolioAsync(type);
-      // SignalR will handle the update
     } catch (error: any) {
       setError(error.message);
     }
@@ -113,7 +197,6 @@ const PortfolioPage: React.FC = () => {
 
     try {
       await PortfolioService.deletePortfolioAsync(portfolioId);
-      // SignalR will handle the update
     } catch (error: any) {
       setError(error.message);
     }
@@ -184,7 +267,6 @@ const PortfolioPage: React.FC = () => {
         purchaseDate: new Date(formData.purchaseDate),
       });
 
-      // Reset modal
       setAddAssetModal({ isOpen: false, portfolioId: null, portfolioType: "" });
       setSelectedAsset(null);
       setSearchTerm("");
@@ -214,6 +296,57 @@ const PortfolioPage: React.FC = () => {
     }
   };
 
+  // Calculate overall statistics
+  const overallStats = {
+    totalValue: portfolios.reduce((sum, p) => sum + p.totalValue, 0),
+    totalInvestment: portfolios.reduce((sum, p) => sum + p.totalInvestment, 0),
+    totalProfit: portfolios.reduce((sum, p) => sum + p.totalProfit, 0),
+    profitPercentage:
+      portfolios.length > 0
+        ? (portfolios.reduce((sum, p) => sum + p.totalProfit, 0) /
+            portfolios.reduce((sum, p) => sum + p.totalInvestment, 0)) *
+          100
+        : 0,
+  };
+
+  // Prepare chart data
+  const portfolioChartData = portfolios.map((portfolio) => ({
+    name: portfolio.type === "stock" ? "Hisse" : "Kripto",
+    value: portfolio.totalValue,
+    profit: portfolio.totalProfit,
+    investment: portfolio.totalInvestment,
+  }));
+
+  // Custom label function for pie chart
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    name,
+  }: any) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+        fontSize={12}
+        fontWeight="bold"
+      >
+        {`${name} ${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
+
   if (loading) {
     return (
       <div className="portfolio-loading">
@@ -226,19 +359,24 @@ const PortfolioPage: React.FC = () => {
   return (
     <div className="portfolio-page">
       <div className="portfolio-header">
-        <h1>Portföy Yönetimi</h1>
+        <div className="header-content">
+          <h1>Portföy Yönetimi</h1>
+          <p>Yatırımlarınızı takip edin ve performansınızı analiz edin</p>
+        </div>
         <div className="portfolio-actions">
           <button
             className="create-btn stock-btn"
             onClick={() => createPortfolio("stock")}
           >
-            Hisse Portföyü Oluştur
+            <span className="btn-icon">📈</span>
+            Hisse Portföyü
           </button>
           <button
             className="create-btn crypto-btn"
             onClick={() => createPortfolio("crypto")}
           >
-            Kripto Portföyü Oluştur
+            <span className="btn-icon">₿</span>
+            Kripto Portföyü
           </button>
         </div>
       </div>
@@ -250,138 +388,349 @@ const PortfolioPage: React.FC = () => {
         </div>
       )}
 
-      <div className="portfolios-grid">
-        {portfolios.map((portfolio) => (
-          <div
-            key={portfolio.id}
-            className={`portfolio-card ${portfolio.type}`}
-          >
-            <div className="portfolio-card-header">
-              <div className="portfolio-type">
-                <span className={`type-badge ${portfolio.type}`}>
-                  {portfolio.type === "stock" ? "HISSE" : "KRİPTO"}
-                </span>
-              </div>
-              <button
-                className="delete-portfolio-btn"
-                onClick={() => deletePortfolio(portfolio.id)}
-                title="Portföyü Sil"
-              >
-                ×
-              </button>
-            </div>
+      {/* Navigation Tabs */}
+      <div className="portfolio-tabs">
+        <button
+          className={`tab-btn ${activeTab === "overview" ? "active" : ""}`}
+          onClick={() => setActiveTab("overview")}
+        >
+          📊 Genel Bakış
+        </button>
+        <button
+          className={`tab-btn ${activeTab === "details" ? "active" : ""}`}
+          onClick={() => setActiveTab("details")}
+        >
+          🗂 Portföy Detayları
+        </button>
+        <button
+          className={`tab-btn ${activeTab === "market" ? "active" : ""}`}
+          onClick={() => setActiveTab("market")}
+        >
+          📈 Piyasa Verileri
+        </button>
+      </div>
 
-            <div className="portfolio-stats">
-              <div className="stat">
-                <label>Toplam Değer</label>
+      {/* Overview Tab */}
+      {activeTab === "overview" && (
+        <div className="overview-tab">
+          {/* Overall Statistics */}
+          <div className="stats-grid">
+            <div className="stat-card primary">
+              <div className="stat-icon">💰</div>
+              <div className="stat-info">
+                <label>Toplam Portföy Değeri</label>
                 <span className="value">
                   ₺
-                  {portfolio.totalValue.toLocaleString("tr-TR", {
+                  {overallStats.totalValue.toLocaleString("tr-TR", {
                     minimumFractionDigits: 2,
                   })}
                 </span>
               </div>
-              <div className="stat">
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon">📥</div>
+              <div className="stat-info">
                 <label>Toplam Yatırım</label>
                 <span className="value">
                   ₺
-                  {portfolio.totalInvestment.toLocaleString("tr-TR", {
+                  {overallStats.totalInvestment.toLocaleString("tr-TR", {
                     minimumFractionDigits: 2,
                   })}
-                </span>
-              </div>
-              <div className="stat">
-                <label>Kar/Zarar</label>
-                <span
-                  className={`value ${
-                    portfolio.totalProfit >= 0 ? "profit" : "loss"
-                  }`}
-                >
-                  ₺
-                  {portfolio.totalProfit.toLocaleString("tr-TR", {
-                    minimumFractionDigits: 2,
-                  })}
-                  ({portfolio.profitPercentage.toFixed(2)}%)
                 </span>
               </div>
             </div>
-
-            <div className="portfolio-items">
-              <div className="items-header">
-                <h3>Varlıklar ({portfolio.items.length})</h3>
-                <button
-                  className="add-asset-btn"
-                  onClick={() =>
-                    setAddAssetModal({
-                      isOpen: true,
-                      portfolioId: portfolio.id,
-                      portfolioType: portfolio.type,
-                    })
-                  }
-                >
-                  + Varlık Ekle
-                </button>
+            <div
+              className={`stat-card ${
+                overallStats.totalProfit >= 0 ? "profit" : "loss"
+              }`}
+            >
+              <div className="stat-icon">
+                {overallStats.totalProfit >= 0 ? "📈" : "📉"}
               </div>
-
-              {portfolio.items.length === 0 ? (
-                <p className="no-items">Henüz varlık eklenmemiş</p>
-              ) : (
-                <div className="items-list">
-                  {portfolio.items.map((item) => (
-                    <div key={item.id} className="portfolio-item">
-                      <div className="item-info">
-                        <span className="symbol">{item.symbol}</span>
-                        <span className="quantity">
-                          {item.quantity.toLocaleString("tr-TR")} adet
-                        </span>
-                      </div>
-                      <div className="item-prices">
-                        <span className="buy-price">
-                          Alış: ₺
-                          {item.buyPrice.toLocaleString("tr-TR", {
-                            minimumFractionDigits: 2,
-                          })}
-                        </span>
-                        <span className="current-price">
-                          Güncel: ₺
-                          {item.currentPrice.toLocaleString("tr-TR", {
-                            minimumFractionDigits: 2,
-                          })}
-                        </span>
-                      </div>
-                      <div className="item-profit">
-                        <span
-                          className={`profit ${
-                            item.profit >= 0 ? "positive" : "negative"
-                          }`}
-                        >
-                          ₺
-                          {item.profit.toLocaleString("tr-TR", {
-                            minimumFractionDigits: 2,
-                          })}
-                          ({item.profitPercentage.toFixed(2)}%)
-                        </span>
-                        <button
-                          className="delete-item-btn"
-                          onClick={() => deletePortfolioItem(item.id)}
-                          title="Varlığı Sil"
-                        >
-                          🗑
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div className="stat-info">
+                <label>Toplam Kar/Zarar</label>
+                <span className="value">
+                  ₺
+                  {overallStats.totalProfit.toLocaleString("tr-TR", {
+                    minimumFractionDigits: 2,
+                  })}
+                  <span className="percentage">
+                    ({overallStats.profitPercentage.toFixed(2)}%)
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
-        ))}
-      </div>
 
-      {portfolios.length === 0 && (
-        <div className="no-portfolios">
-          <h2>Henüz portföyünüz bulunmuyor</h2>
-          <p>Yatırımlarınızı takip etmek için bir portföy oluşturun</p>
+          {/* Charts */}
+          <div className="charts-grid">
+            <div className="chart-card">
+              <h3>Portföy Dağılımı</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={portfolioChartData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {portfolioChartData.map((_entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    formatter={(value) => [
+                      `₺${Number(value).toLocaleString("tr-TR")}`,
+                      "Değer",
+                    ]}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="chart-card">
+              <h3>Portföy Performansı</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={portfolioChartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip
+                    formatter={(value) => [
+                      `₺${Number(value).toLocaleString("tr-TR")}`,
+                      "Değer",
+                    ]}
+                  />
+                  <Legend />
+                  <Bar dataKey="investment" fill="#8884d8" name="Yatırım" />
+                  <Bar dataKey="value" fill="#82ca9d" name="Güncel Değer" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Details Tab */}
+      {activeTab === "details" && (
+        <div className="details-tab">
+          <div className="portfolios-grid">
+            {portfolios.map((portfolio) => (
+              <div
+                key={portfolio.id}
+                className={`portfolio-card ${portfolio.type}`}
+              >
+                <div className="portfolio-card-header">
+                  <div className="portfolio-type">
+                    <span className={`type-badge ${portfolio.type}`}>
+                      {portfolio.type === "stock" ? "HISSE" : "KRİPTO"}
+                    </span>
+                    <h3>
+                      {portfolio.type === "stock"
+                        ? "Hisse Senetleri"
+                        : "Kripto Varlıklar"}
+                    </h3>
+                  </div>
+                  <button
+                    className="delete-portfolio-btn"
+                    onClick={() => deletePortfolio(portfolio.id)}
+                    title="Portföyü Sil"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                <div className="portfolio-stats">
+                  <div className="stat">
+                    <label>Toplam Değer</label>
+                    <span className="value">
+                      ₺
+                      {portfolio.totalValue.toLocaleString("tr-TR", {
+                        minimumFractionDigits: 2,
+                      })}
+                    </span>
+                  </div>
+                  <div className="stat">
+                    <label>Toplam Yatırım</label>
+                    <span className="value">
+                      ₺
+                      {portfolio.totalInvestment.toLocaleString("tr-TR", {
+                        minimumFractionDigits: 2,
+                      })}
+                    </span>
+                  </div>
+                  <div className="stat">
+                    <label>Kar/Zarar</label>
+                    <span
+                      className={`value ${
+                        portfolio.totalProfit >= 0 ? "profit" : "loss"
+                      }`}
+                    >
+                      ₺
+                      {portfolio.totalProfit.toLocaleString("tr-TR", {
+                        minimumFractionDigits: 2,
+                      })}
+                      ({portfolio.profitPercentage.toFixed(2)}%)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Portfolio-specific chart */}
+                <div className="portfolio-chart">
+                  <ResponsiveContainer width="100%" height={200}>
+                    <LineChart
+                      data={portfolio.items.map((item) => ({
+                        name: item.symbol,
+                        value: item.totalValue,
+                        profit: item.profit,
+                      }))}
+                    >
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#8884d8"
+                        strokeWidth={2}
+                      />
+                      <Tooltip
+                        formatter={(value) => [
+                          `₺${Number(value).toLocaleString("tr-TR")}`,
+                          "Değer",
+                        ]}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="portfolio-items">
+                  <div className="items-header">
+                    <h3>Varlıklar ({portfolio.items.length})</h3>
+                    <button
+                      className="add-asset-btn"
+                      onClick={() =>
+                        setAddAssetModal({
+                          isOpen: true,
+                          portfolioId: portfolio.id,
+                          portfolioType: portfolio.type,
+                        })
+                      }
+                    >
+                      + Varlık Ekle
+                    </button>
+                  </div>
+
+                  {portfolio.items.length === 0 ? (
+                    <p className="no-items">Henüz varlık eklenmemiş</p>
+                  ) : (
+                    <div className="items-list">
+                      {portfolio.items.map((item) => (
+                        <div key={item.id} className="portfolio-item">
+                          <div className="item-info">
+                            <span className="symbol">{item.symbol}</span>
+                            <span className="quantity">
+                              {item.quantity.toLocaleString("tr-TR")} adet
+                            </span>
+                          </div>
+                          <div className="item-prices">
+                            <span className="buy-price">
+                              Alış: ₺
+                              {item.buyPrice.toLocaleString("tr-TR", {
+                                minimumFractionDigits: 2,
+                              })}
+                            </span>
+                            <span className="current-price">
+                              Güncel: ₺
+                              {item.currentPrice.toLocaleString("tr-TR", {
+                                minimumFractionDigits: 2,
+                              })}
+                            </span>
+                          </div>
+                          <div className="item-profit">
+                            <span
+                              className={`profit ${
+                                item.profit >= 0 ? "positive" : "negative"
+                              }`}
+                            >
+                              ₺
+                              {item.profit.toLocaleString("tr-TR", {
+                                minimumFractionDigits: 2,
+                              })}
+                              ({item.profitPercentage.toFixed(2)}%)
+                            </span>
+                            <button
+                              className="delete-item-btn"
+                              onClick={() => deletePortfolioItem(item.id)}
+                              title="Varlığı Sil"
+                            >
+                              🗑
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {portfolios.length === 0 && (
+            <div className="no-portfolios">
+              <h2>Henüz portföyünüz bulunmuyor</h2>
+              <p>Yatırımlarınızı takip etmek için bir portföy oluşturun</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Market Data Tab */}
+      {activeTab === "market" && (
+        <div className="market-tab">
+          <div className="market-header">
+            <h2>Canlı Piyasa Verileri</h2>
+            <p>Portföyünüzdeki varlıkların güncel fiyatları</p>
+          </div>
+
+          <div className="market-grid">
+            {marketData.map((item, index) => (
+              <div key={`${item.symbol}-${index}`} className="market-card">
+                <div className="market-symbol">
+                  <span className="symbol">{item.symbol}</span>
+                  <span className={`type-badge ${item.type}`}>
+                    {item.type === "stock" ? "HISSE" : "KRİPTO"}
+                  </span>
+                </div>
+                <div className="market-price">
+                  <span className="price">
+                    ₺
+                    {item.price.toLocaleString("tr-TR", {
+                      minimumFractionDigits: 2,
+                    })}
+                  </span>
+                  <span
+                    className={`change ${
+                      item.change >= 0 ? "positive" : "negative"
+                    }`}
+                  >
+                    {item.change >= 0 ? "↗" : "↘"}
+                    {item.changePercent.toFixed(2)}%
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {marketData.length === 0 && (
+            <div className="no-market-data">
+              <p>Henüz piyasa verisi bulunmuyor</p>
+            </div>
+          )}
         </div>
       )}
 

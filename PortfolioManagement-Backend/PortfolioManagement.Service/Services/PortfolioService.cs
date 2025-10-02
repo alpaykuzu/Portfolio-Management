@@ -218,7 +218,17 @@ namespace PortfolioManagement.Service.Services
                     _logger.LogWarning($"Geçersiz varlık türü: {req.Symbol}");
                     return ApiResponse<NoResponse>.Fail($"Geçersiz varlık türü: {req.Symbol}");
                 }
-            
+                
+                if(portfolio.Items.Any(i => i.Symbol == req.Symbol.ToUpper()))
+                {
+                    var existPortfolioItem = portfolio.Items.First(i => i.Symbol == req.Symbol.ToUpper());
+                    existPortfolioItem.Quantity += req.Quantity;
+                     existPortfolioItem.BuyPrice = ((existPortfolioItem.BuyPrice * (existPortfolioItem.Quantity - req.Quantity)) + (req.BuyPrice * req.Quantity)) / existPortfolioItem.Quantity;
+                    await _portfolioItemRepository.UpdateAsync(existPortfolioItem);
+                    // SignalR ile bildirim gönder
+                    await NotifyPortfolioUpdateAsync();
+                    return ApiResponse<NoResponse>.Ok($"Başarılı");
+                }
 
                 var portfolioItem = new PortfolioItem
                 {
